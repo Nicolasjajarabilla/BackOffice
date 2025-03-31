@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DIFERENCIAS | POSICIONES | <%= config.app.company.shortName %></title>
+    <link
+    rel="stylesheet"
+    href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/colreorder/1.5.3/css/colReorder.dataTables.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/scroller/2.0.3/css/scroller.dataTables.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"
+  />
+
+  <!-- <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script> -->
+  <!-- <link rel="stylesheet" href="/stylesheets/entidadesTable.css" type="text/css"> -->
+  <link rel="stylesheet" href="/stylesheets/base.css" type="text/css" />
+
+ 
+
+  <!-- PARA CUALQUIER NAVEGADOR -->
+  <link
+    rel="icon"
+    href="/images/android-icon-36x36"
+    sizes="32x32"
+    type="image/png"
+  />
+
+  <!-- PARA LOS MODELOS MAS RECIENTES DE IPAD Y IPHONE -->
+  <link
+    rel="apple-touch-icon-precomposed"
+    href="/images/apple-icon-152x152.png"
+    type="image/png"
+    sizes="152x152"
+  />
+  <link
+    rel="apple-touch-icon-precomposed"
+    href="/images/apple-icon-120x120.png"
+    type="image/png"
+    sizes="120x120"
+  />
+
+  <!-- PARA GOOGLE TV -->
+  <link
+    rel="icon"
+    href="/images/favicon-96x96.png"
+    sizes="96x96"
+    type="image/png"
+  />
+  <!-- AQUÍ TE ENCONTRARAS CON MAS ETIQUETAS COMO: Title, script, meta... -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+
+  <script src="/javascripts/base.js"></script>
+
+  <script src="/javascripts/jquery.number.js"></script>
+  <script src="/javascripts/posiciones.js"></script>
+
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/colreorder/1.5.3/js/dataTables.colReorder.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    language="javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+  <body>
+    <%- include('base.ejs') %>
+    <div class="contenido">
+      <div id="tabs" style="width: 99%; margin-left: auto; margin-right: auto; height: 96%">
+        <ul>
+          <li><a href="#USA-IBKR">Posiciones USA y IBKR</a></li>
+          <li><a href="#ARG-LATIN">Posiciones Argentina y Latin</a></li>
+          <li><a href="#TRANSACTIONS-CONVERS">Transactions y Conversiones</a></li>
+          <li><a href="#SECURETYLIST">Securyti list</a></li>
+        </ul>
+          <div id="infoStatus"></div>
+          <div id="USA-IBKR">
+            <span>
+              <button id="load-date-usa-ibkr" class="ui-button ui-widget ui-corner-all">Cargar datos</button>
+            </span>
+            <table id="tableDiferencias-USA-IBKR"  style="width: 100% !important; table-layout: fixed;" class="row-border hover order-column compact cell-border nowrap">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+            <div id="divModalUsaIbkr">
+              <form id="modalUsaIbkr">
+              <table style="padding: 10px 16px 0px 10px;">
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <label>Posiciones condor&nbsp;:&nbsp;</label>
+                    </td>
+                    <td align="left" id="tdUsa">
+                      <div id="drop-zone-usa" class="drop-zone">
+                        Haga click o arrastre el archivo aqui
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" id="deleteUsa" class="ui-button" style="width: 24px; height: 24px; padding: 0;" data-id="${uniqueId}"> 
+                        <i class="fa fa-trash" style="font-size: 14px;"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <label>Posiciones IBKR&nbsp;:&nbsp;</label>
+                    </td>
+                    <td align="left" id="tdIbkr">
+                      <div id="drop-zone-ibkr" class="drop-zone">
+                        Haga click o arrastre el archivo aqui
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" id="deleteIbkr" class="ui-button" style="width: 24px; height: 24px; padding: 0;" data-id="${uniqueId}"> 
+                        <i class="fa fa-trash" style="font-size: 14px;"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            </div>
+         </div>
+         <div id="ARG-LATIN">
+            <span>
+              <button id="load-date-arg-latin" class="ui-button ui-widget ui-corner-all">Cargar datos</button>
+            </span>
+            <table id="tableDiferenciasARG-LATIN"  style="width: 100% !important; table-layout: fixed;" class="row-border hover order-column compact cell-border nowrap">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+            <div id="divModalArgLatin">
+              <form id="modalArgLatin">
+                <table style="padding: 10px 16px 0px 10px;">
+                  <tbody>
+                    <tr>
+                      <td align="right">
+                        <label>Posiciones Condor&nbsp;:&nbsp;</label>
+                      </td>
+                      <td align="left" id="tdarg">
+                        <div id="drop-zone-arg" class="drop-zone">
+                          Haga click o arrastre el archivo aqui
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" id="deleteArg" class="ui-button" style="width: 24px; height: 24px; padding: 0;" data-id="${uniqueId}"> 
+                          <i class="fa fa-trash" style="font-size: 14px;"></i>
+                        </button> 
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="right">
+                        <label>Posiciones Latin&nbsp;:&nbsp;</label>
+                      </td>
+                      <td align="left" id="tdlatin">
+                        <div id="drop-zone-latin" class="drop-zone">
+                          Haga click o arrastre el archivo aqui
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" id="deleteLatin" class="ui-button" style="width: 24px; height: 24px; padding: 0;" data-id="${uniqueId}"> 
+                          <i class="fa fa-trash" style="font-size: 14px;"></i>
+                        </button> 
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+        </div>
+        <div id="TRANSACTIONS-CONVERS">
+          <span>
+            <button id="load-date-transactions-convers" class="ui-button ui-widget ui-corner-all">Cargar datos</button>
+          </span>
+          <table id="tableDiferenciasTRANSACTIONS-CONVERS"  style="width: 100% !important; table-layout: fixed;" class="row-border hover order-column compact cell-border nowrap">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+          <div id="divModalTransactionsConvers">
+            <form id="modalTransactionsConvers">
+              <table>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <label>Transactions&nbsp;:&nbsp;</label>
+                    </td>
+                    <td align="left" id="tdtransactions">
+                      <div id="drop-zone-transactions" class="drop-zone">
+                        Haga click o arrastre el archivo aqui
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" id="btnTransactions" class="ui-button" style="width: 24px; height: 24px; padding: 0;"> 
+                        <i class="fa fa-trash" style="font-size: 14px;"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <label>Conversiones&nbsp;:&nbsp;</label>
+                    </td>
+                    <td align="left" id="tdconvers">
+                      <div id="drop-zone-convers" class="drop-zone">
+                        Haga click o arrastre el archivo aqui
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" id="btnConvers" class="ui-button" style="width: 24px; height: 24px; padding: 0;"> 
+                        <i class="fa fa-trash" style="font-size: 14px;"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+        <div id="SECURETYLIST">
+          <span>
+            <button id="loading-data" class="ui-button ui-widget ui-corner-all">Cargar datos</button>
+          </span>
+          <table id="tableSecurityList" style="min-width: 100%; max-width: 100%; table-layout: fixed;" class="row-border hover order-column compact cell-border nowrap">
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </body>
+</html>
